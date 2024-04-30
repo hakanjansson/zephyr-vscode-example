@@ -8,5 +8,13 @@
 
 		// File Associations
 		"files.associations": {
-		}
+		},
+
+		// Modify these to match installation paths
+		"modustoolbox.toolsPath": "/opt/Tools/ModusToolbox/tools_3.2",
+		"zephyr.zephyr_base": "/home/hkj/zephyrproject/zephyr",
+		"zephyr.modules_base": "${config:zephyr.zephyr_base}/../modules",
+
+		"cortex-debug.openocdPath": "${config:modustoolbox.toolsPath}/openocd/bin/openocd",
+		"cortex-debug.armToolchainPath": "${config:modustoolbox.toolsPath}/gcc/bin",
 }
