@@ -60,7 +60,9 @@
 				"type": "shell",
 				"command": "${userHome}/zephyrproject/.venv/bin/west",
 				"args": [
-					"flash"
+					"flash",
+					"--openocd",
+					"${env:CY_TOOLS_PATHS}/openocd/bin/openocd"
 				],
 				"problemMatcher": [
 					"$gcc"
