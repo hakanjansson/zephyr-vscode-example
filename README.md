@@ -28,3 +28,11 @@ There are many, many different ways to develop a Zephyr application. This exampl
 ## Credits
 
 https://zmk.dev/docs/development/ide-integration
+
+## CYW20829
+
+A pull request for CYW920829M2EVK-02 board support is currenlty open at the Zephyr GitHub.
+
+https://github.com/zephyrproject-rtos/zephyr/pull/70961
+
+https://github.com/sreeramIfx/zephyr/blob/1e2c711baa45347ba2100acd4ecee13d357560b4/boards/infineon/cyw920829m2evk_02/doc/index.rst
