@@ -31,7 +31,7 @@
 					"-p",
 					"auto",
 					"-b",
-					"nrf52840dk_nrf52840"
+					"cyw920829m2evk_02"
 				],
 				"problemMatcher": [
 					"$gcc"
@@ -71,8 +71,8 @@
 			{
 				"id": "board",
 				"type": "promptString",
-				"default": "nrf52840dk_nrf52840",
-				"description": "See https://docs.zephyrproject.org/latest/boards/index.html"
+				"default": "cyw920829m2evk_02",
+				"description": "Choose target board"
 			},
 			{
 				"id": "pristine",
