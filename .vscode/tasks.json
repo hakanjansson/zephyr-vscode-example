@@ -69,7 +69,7 @@
 			"args": [
 				"flash",
 				"--openocd",
-				"${env:CY_TOOLS_PATHS}/openocd/bin/openocd"
+				"${config:modustoolbox.toolsPath}/openocd/bin/openocd"
 			],
 			"problemMatcher": [
 				"$gcc"
