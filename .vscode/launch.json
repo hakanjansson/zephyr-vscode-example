@@ -44,5 +44,42 @@
             "breakAfterReset": true,
             "showDevDebugOutput": "none"
         },
+		{
+            "name": "Attach CYW20829 CM33 (KitProg3_MiniProg4)",
+            "cwd": "${workspaceFolder}",
+            "executable": "build/zephyr/zephyr.elf",
+            "request": "attach",
+            "type": "cortex-debug",
+            "runToEntryPoint": "main",    // Specifies application entry point name for restart/reset
+            "servertype": "openocd",
+            "rtos": "auto",
+            "searchDir": [
+                "${config:zephyr.zephyr_base}/boards/infineon/cyw920829m2evk_02/support/",
+                "${config:modustoolbox.toolsPath}/openocd/scripts/",
+            ],
+            "openOCDPreConfigLaunchCommands": [
+                "set QSPI_FLASHLOADER ${config:zephyr.modules_base}/hal/infineon/mtb-template-cat1/files/flashloader/cat1b/CYW208xx_SMIF.FLM",
+            ],
+            "openOCDLaunchCommands": [
+                "${TARGET}.cm33 configure -rtos auto -rtos-wipe-on-reset-halt 1",
+                "gdb_breakpoint_override hard"
+            ],
+            "configFiles": [
+                "${config:zephyr.zephyr_base}/boards/infineon/cyw920829m2evk_02/support/openocd.cfg"
+            ],
+            "overrideAttachCommands": [
+                "set mem inaccessible-by-default off",
+                "-enable-pretty-printing",
+                "set remotetimeout 15",
+                "monitor halt"
+            ],
+            "overrideRestartCommands": [
+                "starti"
+            ],
+            // svdFile is optional, it can be very large.
+            "svdFile": "${config:zephyr.modules_base}/hal/infineon/mtb-pdl-cat1/devices/COMPONENT_CAT1B/svd/cyw20829.svd",
+            "breakAfterReset": true,
+            "showDevDebugOutput": "none"
+        }
     ]
 }
