@@ -47,6 +47,13 @@
 				"--openocd",
 				"${config:modustoolbox.toolsPath}/openocd/bin/openocd"
 			],
+			"windows": {
+				"args": [
+					"flash",
+					"--openocd",
+					"${config:modustoolbox.toolsPath}/openocd/bin/openocd.exe"
+				],
+			},
 			"problemMatcher": [
 				"$gcc"
 			]
