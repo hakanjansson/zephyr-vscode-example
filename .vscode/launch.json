@@ -9,7 +9,7 @@
             "type": "cortex-debug",
             "runToEntryPoint": "main",
             "servertype": "openocd",
-            "preLaunchTask": "West Build",
+            "preLaunchTask": "West Build and Flash",
             "rtos": "auto",
             "searchDir": [
                 "${config:zephyr.zephyr_base}/boards/infineon/cyw920829m2evk_02/support/",
@@ -30,11 +30,6 @@
                 "-enable-pretty-printing",
                 "set remotetimeout 15",
                 "monitor reset init",
-
-                // Comment this next line out if you don't want to reload program
-                "monitor program {${workspaceFolder}/build/zephyr/zephyr.hex}",
-
-                "monitor reset init"
             ],
             "overrideRestartCommands": [
                 "starti"
