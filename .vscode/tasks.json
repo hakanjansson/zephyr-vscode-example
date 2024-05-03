@@ -8,15 +8,7 @@
 				"kind": "build",
 				"isDefault": true
 			},
-			"linux": {
-				"command": "${userHome}/zephyrproject/.venv/bin/west"
-			},
-			"windows": {
-				"command": "${userHome}/zephyrproject/.venv/Scripts/west.exe"
-			},
-			"osx": {
-				"command": "${userHome}/zephyrproject/.venv/bin/west"
-			},
+			"command": "west",
 			"args": [
 				"build",
 				"-p",
@@ -34,15 +26,7 @@
 			"group": {
 				"kind": "build",
 			},
-			"linux": {
-				"command": "${userHome}/zephyrproject/.venv/bin/west"
-			},
-			"windows": {
-				"command": "${userHome}/zephyrproject/.venv/Scripts/west.exe"
-			},
-			"osx": {
-				"command": "${userHome}/zephyrproject/.venv/bin/west"
-			},
+			"command": "west",
 			"args": [
 				"build",
 				"-p",
@@ -57,15 +41,7 @@
 		{
 			"label": "West Flash",
 			"type": "shell",
-			"linux": {
-				"command": "${userHome}/zephyrproject/.venv/bin/west"
-			},
-			"windows": {
-				"command": "${userHome}/zephyrproject/.venv/Scripts/west.exe"
-			},
-			"osx": {
-				"command": "${userHome}/zephyrproject/.venv/bin/west"
-			},
+			"command": "west",
 			"args": [
 				"flash",
 				"--openocd",
