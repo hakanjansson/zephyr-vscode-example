@@ -1,0 +1,202 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		// Modify these to match installation paths
+		"modustoolbox.toolsPath": "/opt/Tools/ModusToolbox/tools_3.2",
+		"zephyr.zephyr_base": "${userHome}/zephyrproject/zephyr",
+		"zephyr.modules_base": "${config:zephyr.zephyr_base}/../modules",
+
+		"cortex-debug.openocdPath": "${config:modustoolbox.toolsPath}/openocd/bin/openocd",
+		"cortex-debug.armToolchainPath": "${config:modustoolbox.toolsPath}/gcc/bin",
+
+		// Hush CMake
+		"cmake.configureOnOpen": false,
+
+		// IntelliSense
+		"C_Cpp.default.compilerPath": "${config:cortex-debug.armToolchainPath}/arm-none-eabi-gcc",
+		"C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
+
+		// File Associations
+		"files.associations": {}
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "West Build",
+				"type": "shell",
+				"group": {
+					"kind": "build",
+					"isDefault": true
+				},
+				"command": "west",
+				"args": [
+					"build",
+					"-p",
+					"auto",
+					"-b",
+					"cyw920829m2evk_02"
+				],
+				"problemMatcher": [
+					"$gcc"
+				]
+			},
+			{
+				"label": "West Configurable Build",
+				"type": "shell",
+				"group": {
+					"kind": "build",
+				},
+				"command": "west",
+				"args": [
+					"build",
+					"-p",
+					"${input:pristine}",
+					"-b",
+					"${input:board}"
+				],
+				"problemMatcher": [
+					"$gcc"
+				]
+			},
+			{
+				"label": "West Flash",
+				"type": "shell",
+				"command": "west",
+				"args": [
+					"flash",
+					"--openocd",
+					"${config:modustoolbox.toolsPath}/openocd/bin/openocd"
+				],
+				"windows": {
+					"args": [
+						"flash",
+						"--openocd",
+						"${config:modustoolbox.toolsPath}/openocd/bin/openocd.exe"
+					],
+				},
+				"problemMatcher": [
+					"$gcc"
+				]
+			},
+			{
+				"label": "West Build and Flash",
+				"dependsOn": ["West Build", "West Flash"],
+				"dependsOrder": "sequence"
+			}
+		],
+		"inputs": [
+			{
+				"id": "board",
+				"type": "promptString",
+				"default": "cyw920829m2evk_02",
+				"description": "Choose target board"
+			},
+			{
+				"id": "pristine",
+				"type": "pickString",
+				"description": "Choose when to run a pristine build",
+				"default": "auto",
+				"options": [
+					"auto",
+					"always",
+					"never"
+				]
+			}
+		]
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Launch CYW20829 CM33 (KitProg3_MiniProg4)",
+				"cwd": "${workspaceFolder}",
+				"executable": "build/zephyr/zephyr.elf",
+				"request": "launch",
+				"type": "cortex-debug",
+				"runToEntryPoint": "main",
+				"servertype": "openocd",
+				"preLaunchTask": "West Build and Flash",
+				"rtos": "auto",
+				"searchDir": [
+					"${config:zephyr.zephyr_base}/boards/infineon/cyw920829m2evk_02/support/",
+					"${config:modustoolbox.toolsPath}/openocd/scripts/",
+				],
+				"openOCDPreConfigLaunchCommands": [
+					"set QSPI_FLASHLOADER ${config:zephyr.modules_base}/hal/infineon/mtb-template-cat1/files/flashloader/cat1b/CYW208xx_SMIF.FLM",
+				],
+				"openOCDLaunchCommands": [
+					"${TARGET}.cm33 configure -rtos auto -rtos-wipe-on-reset-halt 1",
+					"gdb_breakpoint_override hard"
+				],
+				"configFiles": [
+					"${config:zephyr.zephyr_base}/boards/infineon/cyw920829m2evk_02/support/openocd.cfg"
+				],
+				"overrideLaunchCommands": [
+					"set mem inaccessible-by-default off",
+					"-enable-pretty-printing",
+					"set remotetimeout 15",
+					"monitor reset init",
+				],
+				"overrideRestartCommands": [
+					"starti"
+				],
+				// svdFile is optional, it can be very large.
+				"svdFile": "${config:zephyr.modules_base}/hal/infineon/mtb-pdl-cat1/devices/COMPONENT_CAT1B/svd/cyw20829.svd",
+				"breakAfterReset": true,
+				"showDevDebugOutput": "none"
+			},
+			{
+				"name": "Attach CYW20829 CM33 (KitProg3_MiniProg4)",
+				"cwd": "${workspaceFolder}",
+				"executable": "build/zephyr/zephyr.elf",
+				"request": "attach",
+				"type": "cortex-debug",
+				"runToEntryPoint": "main",    // Specifies application entry point name for restart/reset
+				"servertype": "openocd",
+				"rtos": "auto",
+				"searchDir": [
+					"${config:zephyr.zephyr_base}/boards/infineon/cyw920829m2evk_02/support/",
+					"${config:modustoolbox.toolsPath}/openocd/scripts/",
+				],
+				"openOCDPreConfigLaunchCommands": [
+					"set QSPI_FLASHLOADER ${config:zephyr.modules_base}/hal/infineon/mtb-template-cat1/files/flashloader/cat1b/CYW208xx_SMIF.FLM",
+				],
+				"openOCDLaunchCommands": [
+					"${TARGET}.cm33 configure -rtos auto -rtos-wipe-on-reset-halt 1",
+					"gdb_breakpoint_override hard"
+				],
+				"configFiles": [
+					"${config:zephyr.zephyr_base}/boards/infineon/cyw920829m2evk_02/support/openocd.cfg"
+				],
+				"overrideAttachCommands": [
+					"set mem inaccessible-by-default off",
+					"-enable-pretty-printing",
+					"set remotetimeout 15",
+					"monitor halt"
+				],
+				"overrideRestartCommands": [
+					"starti"
+				],
+				// svdFile is optional, it can be very large.
+				"svdFile": "${config:zephyr.modules_base}/hal/infineon/mtb-pdl-cat1/devices/COMPONENT_CAT1B/svd/cyw20829.svd",
+				"breakAfterReset": true,
+				"showDevDebugOutput": "none"
+			}
+		]
+	},
+	"extensions": {
+		"recommendations": [
+			"ms-vscode.cpptools-extension-pack",
+			"ms-python.python",
+			"ms-vscode.vscode-embedded-tools",
+			"ms-vscode.vscode-serial-monitor",
+			"marus25.cortex-debug",
+			"donjayamanne.python-environment-manager"
+		]
+	}
+}
