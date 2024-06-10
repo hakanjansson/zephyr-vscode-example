@@ -13,7 +13,7 @@
             "rtos": "auto",
             "searchDir": [
                 "${config:zephyr.zephyr_base}/boards/infineon/cyw920829m2evk_02/support/",
-                "${config:modustoolbox.toolsPath}/openocd/scripts/",
+                "${config:infineon.openocd_base}/scripts/",
             ],
             "openOCDPreConfigLaunchCommands": [
                 "set QSPI_FLASHLOADER ${config:zephyr.modules_base}/hal/infineon/mtb-template-cat1/files/flashloader/cat1b/CYW208xx_SMIF.FLM",
@@ -50,7 +50,7 @@
             "rtos": "auto",
             "searchDir": [
                 "${config:zephyr.zephyr_base}/boards/infineon/cyw920829m2evk_02/support/",
-                "${config:modustoolbox.toolsPath}/openocd/scripts/",
+                "${config:infineon.openocd_base}/scripts/",
             ],
             "openOCDPreConfigLaunchCommands": [
                 "set QSPI_FLASHLOADER ${config:zephyr.modules_base}/hal/infineon/mtb-template-cat1/files/flashloader/cat1b/CYW208xx_SMIF.FLM",

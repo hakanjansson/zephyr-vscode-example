@@ -6,8 +6,6 @@ This is an example configuration for setting up Visual Studio Code for Zephyr ap
 
 The original example has been modified to demonstrate Zephyr application development targeting the Infineon CYW920829M2EVK-02 Evaluation Kit.
 
-Early Zephyr support for CYW920829M2EVK-02 is currently available in pull request #70961, ["boards: arm: Introduce Infineon CYW920829M2EVK-02 board"](https://github.com/zephyrproject-rtos/zephyr/pull/70961).
-
 ## Example details
 
 There are many, many different ways to develop a Zephyr application. This example currently assumes:
@@ -19,34 +17,23 @@ There are many, many different ways to develop a Zephyr application. This exampl
 ## Steps
 
 1. Follow the Zephyr [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html) for your OS
-1. Check out pull request with CYW920829M2EVK-02 support
-    - `git fetch origin pull/70961/head`
-    - `git checkout FETCH_HEAD`
 1. Turn on Compilation Database with `west config build.cmake-args -- -DCMAKE_EXPORT_COMPILE_COMMANDS=ON`
-1. Copy the `zephyr.code-workspace` file and/or the `.vscode` folder to `samples/basic/thread`
-1. See board [doc](https://github.com/sreeramIfx/zephyr/blob/1e2c711baa45347ba2100acd4ecee13d357560b4/boards/infineon/cyw920829m2evk_02/doc/index.rst) for the CYW920829M2EVK-02
-    - Install `srec_cat`
-    - Install ModusToolbox
+1. Copy the `.vscode` folder and/or the `zephyr.code-workspace` file to `samples/basic/thread`
+1. See board [doc](https://docs.zephyrproject.org/latest/boards/infineon/cyw920829m2evk_02/doc/index.html) for the CYW920829M2EVK-02
+    - Install Infineon customized OpenOCD according to instructions
 1. Open `samples/basic/thread` in VS Code
     - Accept to install recommended extensions
 1. Edit settings in `.vscode/settings.json` and/or `zephyr.code-workspace` to reflect the actual paths used
-    - `modustoolbox.toolsPath`
     - `zephyr.zephyr_base`
+    - `zephyr.zephyr_sdk_install_dir`
+    - `infineon.openocd_base`
 1. Set the `Python: Interpreter Path` in VS Code settings
     - If Python virtual environments were used during install, this would be something like:
 	    - `~/zephyrproject/.venv/bin/python3`
-1. Add led1 alias in board file `zephyr\boards\infineon\cyw920829m2evk_02\cyw920829m2evk_02-common.dtsi`
-    ```
-    aliases {
-		led0 = &user_led0;
-		sw0 = &user_bt0;
-		led1 = &user_led1;
-		sw1 = &user_bt1;
-	};
-    ```
 1. Try the different build tasks and the flash task
 1. Try to connect over the serial terminal
 1. Try step debugging
+    - Enable thread awareness support by adding `CONFIG_DEBUG_THREAD_INFO=y` in application file `prj.conf`
 
 ## Credits
 

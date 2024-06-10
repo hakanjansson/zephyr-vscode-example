@@ -45,13 +45,13 @@
 			"args": [
 				"flash",
 				"--openocd",
-				"${config:modustoolbox.toolsPath}/openocd/bin/openocd"
+				"${config:infineon.openocd_base}/bin/openocd"
 			],
 			"windows": {
 				"args": [
 					"flash",
 					"--openocd",
-					"${config:modustoolbox.toolsPath}/openocd/bin/openocd.exe"
+					"${config:infineon.openocd_base}/bin/openocd.exe"
 				],
 			},
 			"problemMatcher": [
@@ -61,7 +61,8 @@
 		{
 			"label": "West Build and Flash",
 			"dependsOn": ["West Build", "West Flash"],
-			"dependsOrder": "sequence"
+			"dependsOrder": "sequence",
+			"problemMatcher": ["$gcc"]
 		}
 	],
 	"inputs": [

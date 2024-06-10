@@ -1,17 +1,19 @@
 {
 		// Modify these to match installation paths
-		"modustoolbox.toolsPath": "/opt/Tools/ModusToolbox/tools_3.2",
 		"zephyr.zephyr_base": "${userHome}/zephyrproject/zephyr",
 		"zephyr.modules_base": "${config:zephyr.zephyr_base}/../modules",
+		"zephyr.zephyr_sdk_install_dir": "${userHome}/zephyr-sdk-0.16.5-1",
+		"infineon.openocd_base": "/opt/Tools/ModusToolbox/tools_3.2/openocd",
 
-		"cortex-debug.openocdPath": "${config:modustoolbox.toolsPath}/openocd/bin/openocd",
-		"cortex-debug.armToolchainPath": "${config:modustoolbox.toolsPath}/gcc/bin",
+		"cortex-debug.armToolchainPath": "${config:zephyr.zephyr_sdk_install_dir}/arm-zephyr-eabi/bin",
+		"cortex-debug.gdbPath": "${config:cortex-debug.armToolchainPath}/arm-zephyr-eabi-gdb",
+		"cortex-debug.openocdPath": "${config:infineon.openocd_base}/bin/openocd",
 
 		// Hush CMake
 		"cmake.configureOnOpen": false,
 
 		// IntelliSense
-		"C_Cpp.default.compilerPath": "${config:cortex-debug.armToolchainPath}/arm-none-eabi-gcc",
+		"C_Cpp.default.compilerPath": "${config:cortex-debug.armToolchainPath}/arm-zephyr-eabi-gcc",
 		"C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
 
 		// File Associations

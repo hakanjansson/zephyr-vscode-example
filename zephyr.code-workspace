@@ -6,22 +6,25 @@
 	],
 	"settings": {
 		// Modify these to match installation paths
-		"modustoolbox.toolsPath": "/opt/Tools/ModusToolbox/tools_3.2",
 		"zephyr.zephyr_base": "${userHome}/zephyrproject/zephyr",
 		"zephyr.modules_base": "${config:zephyr.zephyr_base}/../modules",
+		"zephyr.zephyr_sdk_install_dir": "${userHome}/zephyr-sdk-0.16.5-1",
+		"infineon.openocd_base": "/opt/Tools/ModusToolbox/tools_3.2/openocd",
 
-		"cortex-debug.openocdPath": "${config:modustoolbox.toolsPath}/openocd/bin/openocd",
-		"cortex-debug.armToolchainPath": "${config:modustoolbox.toolsPath}/gcc/bin",
+		"cortex-debug.armToolchainPath": "${config:zephyr.zephyr_sdk_install_dir}/arm-zephyr-eabi/bin",
+		"cortex-debug.gdbPath": "${config:cortex-debug.armToolchainPath}/arm-zephyr-eabi-gdb",
+		"cortex-debug.openocdPath": "${config:infineon.openocd_base}/bin/openocd",
 
 		// Hush CMake
 		"cmake.configureOnOpen": false,
 
 		// IntelliSense
-		"C_Cpp.default.compilerPath": "${config:cortex-debug.armToolchainPath}/arm-none-eabi-gcc",
+		"C_Cpp.default.compilerPath": "${config:cortex-debug.armToolchainPath}/arm-zephyr-eabi-gcc",
 		"C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
 
 		// File Associations
-		"files.associations": {}
+		"files.associations": {
+		},
 	},
 	"tasks": {
 		"version": "2.0.0",
@@ -70,13 +73,13 @@
 				"args": [
 					"flash",
 					"--openocd",
-					"${config:modustoolbox.toolsPath}/openocd/bin/openocd"
+					"${config:infineon.openocd_base}/bin/openocd"
 				],
 				"windows": {
 					"args": [
 						"flash",
 						"--openocd",
-						"${config:modustoolbox.toolsPath}/openocd/bin/openocd.exe"
+						"${config:infineon.openocd_base}/bin/openocd.exe"
 					],
 				},
 				"problemMatcher": [
@@ -86,7 +89,8 @@
 			{
 				"label": "West Build and Flash",
 				"dependsOn": ["West Build", "West Flash"],
-				"dependsOrder": "sequence"
+				"dependsOrder": "sequence",
+				"problemMatcher": ["$gcc"]
 			}
 		],
 		"inputs": [
@@ -124,7 +128,7 @@
 				"rtos": "auto",
 				"searchDir": [
 					"${config:zephyr.zephyr_base}/boards/infineon/cyw920829m2evk_02/support/",
-					"${config:modustoolbox.toolsPath}/openocd/scripts/",
+					"${config:infineon.openocd_base}/scripts/",
 				],
 				"openOCDPreConfigLaunchCommands": [
 					"set QSPI_FLASHLOADER ${config:zephyr.modules_base}/hal/infineon/mtb-template-cat1/files/flashloader/cat1b/CYW208xx_SMIF.FLM",
@@ -161,7 +165,7 @@
 				"rtos": "auto",
 				"searchDir": [
 					"${config:zephyr.zephyr_base}/boards/infineon/cyw920829m2evk_02/support/",
-					"${config:modustoolbox.toolsPath}/openocd/scripts/",
+					"${config:infineon.openocd_base}/scripts/",
 				],
 				"openOCDPreConfigLaunchCommands": [
 					"set QSPI_FLASHLOADER ${config:zephyr.modules_base}/hal/infineon/mtb-template-cat1/files/flashloader/cat1b/CYW208xx_SMIF.FLM",
