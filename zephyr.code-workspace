@@ -91,6 +91,28 @@
 				"dependsOn": ["West Build", "West Flash"],
 				"dependsOrder": "sequence",
 				"problemMatcher": ["$gcc"]
+			},
+			{
+				"label": "Erase Flash",
+				"type": "shell",
+				"command": "west",
+				"args": [
+					"flash",
+					"--cmd-load",
+					"'flash erase_address 0x60000000 0x100000;#'",
+					"--openocd",
+					"${config:infineon.openocd_base}/bin/openocd"
+				],
+				"windows": {
+					"args": [
+						"flash",
+						"--cmd-load",
+						"'flash erase_address 0x60000000 0x100000;#'",
+						"--openocd",
+						"${config:infineon.openocd_base}/bin/openocd.exe"
+					],
+				},
+				"problemMatcher": []
 			}
 		],
 		"inputs": [
